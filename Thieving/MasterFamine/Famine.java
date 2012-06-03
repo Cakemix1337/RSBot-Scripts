@@ -4,19 +4,15 @@ import java.awt.Graphics;
 
 import masterFamine.functions.Constants;
 import masterFamine.functions.GUI;
+import masterFamine.functions.Tasks.AntiBan;
+import masterFamine.functions.Tasks.Banking;
+import masterFamine.functions.Tasks.Drop;
+import masterFamine.functions.Tasks.Eat;
+import masterFamine.functions.Tasks.Flee;
+import masterFamine.functions.Tasks.Gloves;
+import masterFamine.functions.Tasks.PickPocket;
 import masterFamine.functions.handlers.MessageHandler;
 import masterFamine.functions.handlers.PaintHandler;
-import masterFamine.functions.tasks.AntiBan;
-import masterFamine.functions.tasks.DepositAll;
-import masterFamine.functions.tasks.DropSeeds;
-import masterFamine.functions.tasks.EatFood;
-import masterFamine.functions.tasks.EquipGloves;
-import masterFamine.functions.tasks.KillGuard;
-import masterFamine.functions.tasks.PrepareInventory;
-import masterFamine.functions.tasks.SpinTicket;
-import masterFamine.functions.tasks.StealSeeds;
-import masterFamine.functions.tasks.WalkToBank;
-import masterFamine.functions.tasks.WalkToMarket;
 
 import org.powerbot.concurrent.Task;
 import org.powerbot.concurrent.strategy.Condition;
@@ -31,41 +27,54 @@ import org.powerbot.game.bot.event.MessageEvent;
 import org.powerbot.game.bot.event.listener.MessageListener;
 import org.powerbot.game.bot.event.listener.PaintListener;
 
-@Manifest(authors = { "Nalar & Cakemix" }, name = "MasterFamine v2", version = 2.01, description = "Info is in the GUI.")
+@Manifest(authors = { "Nalar & Cakemix" }, name = "MasterFamine v2", version = 2.14, description = "Does masterfarmer for you, start in the draynor market or bank.")
 public class Famine extends ActiveScript implements PaintListener,
 		MessageListener, Condition, Task {
 
 	@Override
 	protected void setup() {
-		// Give some output to the RSBot log
 		log.info("Welcome to MasterFamine v2");
 		log.info("Please report any bugs in the topic on the Powerbot forums");
-		log.info("Thread: ");
-		// Get some of the starting parameters
+		log.info("Thread: http://bit.ly/MasterFamine");
+
 		Constants.StartXP = Skills.getExperience(Skills.THIEVING);
-		// Load the necessary pictures for the paint
-		// Paint pictures are not implemented yet ;-)
 		Constants.setup = new Strategy(this, this);
 		Constants.setup.setReset(true);
-		// Provide all the neccesary tasks
 
-		provide(Constants.setup);
-
-		provide(new StealSeeds()); 
-		provide(new WalkToBank()); 
-		provide(new DepositAll()); 
-		provide(new PrepareInventory());
-		provide(new WalkToMarket()); 
-		provide(new KillGuard()); 
-		provide(new EatFood()); 
-		provide(new DropSeeds());
-		provide(new EquipGloves());
-		provide(new SpinTicket()); 
-
-		Strategy anti = new Strategy(new AntiBan(), new AntiBan());
-		anti.setLock(false);
-		provide(anti);
-	}
+		provide(Constants.setup); 
+		
+		provide(new PickPocket());
+		provide(new Banking());
+		provide(new Flee());
+		provide(new Eat());
+		provide(new Gloves());
+		provide(new Drop());
+		provide(new AntiBan());
+		
+		/*
+		 * provide(Strategies.stealSeeds);
+		 * 
+		 * provide(Strategies.walkToBank);
+		 * 
+		 * provide(Strategies.depositAll);
+		 * 
+		 * provide(Strategies.prepareInventory);
+		 * 
+		 * provide(Strategies.walkToMarket);
+		 * 
+		 * provide(Strategies.killGuard);
+		 * 
+		 * provide(Strategies.eatFood);
+		 * 
+		 * provide(Strategies.dropSeeds);
+		 * 
+		 * provide(Strategies.equipGloves);
+		 * 
+		 * provide(Strategies.spinTicket);
+		 * 
+		 * Strategy anti = new Strategy(new AntiBan(), new AntiBan());
+		 * anti.setLock(false); provide(anti);
+		 */}
 
 	@Override
 	public void run() {
@@ -80,7 +89,7 @@ public class Famine extends ActiveScript implements PaintListener,
 			stop();
 		}
 
-		revoke(Constants.setup); 
+		revoke(Constants.setup);
 	}
 
 	@Override

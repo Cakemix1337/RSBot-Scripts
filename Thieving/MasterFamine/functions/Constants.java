@@ -1,10 +1,12 @@
 package masterFamine.functions;
 
+import java.util.Arrays;
+import java.util.List;
+
 import javax.swing.JPanel;
 
 import org.powerbot.concurrent.strategy.Strategy;
 import org.powerbot.game.api.util.Timer;
-import org.powerbot.game.api.wrappers.Area;
 import org.powerbot.game.api.wrappers.Tile;
 
 public class Constants {
@@ -16,22 +18,23 @@ public class Constants {
 	/*
 	 * Areas
 	 */
-	public static int BankCounterID[] = { 2012, 2015, 2019 };
-	public static final Area BankArea = new Area(new Tile(3093, 3240, 0),
-			new Tile(3092, 3246, 0));
-	public static final Area MarketArea = new Area(new Tile(3086, 3244, 0),
-			new Tile(3074, 3260, 0));
+	public final static Tile[] marketArea = { new Tile(3069, 3264, 0),
+			new Tile(3068, 3243, 0), new Tile(3076, 3239, 0),
+			new Tile(3085, 3242, 0), new Tile(3086, 3248, 0),
+			new Tile(3102, 3249, 0), new Tile(3096, 3260, 0),
+			new Tile(3093, 3249, 0), new Tile(3084, 3248, 0),
+			new Tile(3084, 3258, 0), new Tile(3077, 3258, 0),
+			new Tile(3068, 3264, 0) },bankArea = { new Tile(3087, 3246, 0),
+			new Tile(3087, 3240, 0), new Tile(3096, 3240, 0),
+			new Tile(3096, 3248, 0), new Tile(3087, 3247, 0) };
+
+	public final static Tile market = new Tile(3079, 3251, 0);
+	public final static Tile bank = new Tile(3092, 3244, 0);
 
 	/*
 	 * Paths
 	 */
 
-	public static final Tile[] toBank = new Tile[] { new Tile(3080, 3251, 0),
-			new Tile(3084, 3248, 0), new Tile(3090, 3247, 0),
-			new Tile(3092, 3243, 0) };
-	public static final Tile[] toMarket = new Tile[] { new Tile(3092, 3243, 0),
-			new Tile(3090, 3247, 0), new Tile(3084, 3248, 0),
-			new Tile(3080, 3251, 0) };
 
 	/*
 	 * Items
@@ -41,8 +44,11 @@ public class Constants {
 			5310, 5308, 5102, 5294, 5309, 5101, 5096, 5324, 5306, 5291, 5103,
 			5292, 5097, 5281, 5098, 5105, 5106, 5280, 5297, 5311, 5104, 5293,
 			5318, 5282, 5320, 1937 };
+	List<int[]> dropSeedsIDs = Arrays.asList(Constants.CheapSeedID);
 	public static final int GloveID = 10075;
-	public static String Status = "Starting";
+
+	public static boolean stopScript = false;
+	public static String status = "Starting";
 	public static int FoodID = 0; // Set from GUI
 
 	public static String[] foodNames = { "Trout", "Tuna", "Lobster", "Swordfish", "Monkfish",
@@ -83,7 +89,7 @@ public class Constants {
 	public static Timer runTime = null;
 
 	public static int HealPct = 10; // Set from GUI
-	public static int FoodLeft = 0;
+	public static int foodEated = 0;
 	public static int RandomInt;
 
 	/*
@@ -97,4 +103,9 @@ public class Constants {
 	 */
 
 	public static JPanel contentPane;
+
+	public static int gainedLvls = 0;
+
+	public static long lastTime = 0;
+
 }

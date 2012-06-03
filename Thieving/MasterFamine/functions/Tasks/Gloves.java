@@ -1,4 +1,4 @@
-package masterFamine.functions.tasks;
+package masterFamine.functions.Tasks;
 
 import masterFamine.functions.Constants;
 
@@ -10,12 +10,12 @@ import org.powerbot.game.api.util.Random;
 import org.powerbot.game.api.util.Time;
 import org.powerbot.game.api.wrappers.node.Item;
 
-public class EquipGloves extends Strategy implements Task {
+public class Gloves extends Strategy implements Task {
 	/**
 	 * Are gloves enabled Are gloves equipped
 	 */
 	public boolean validate() {
-		return Constants.GUIFinished && Constants.invPrepped
+		return Constants.GUIFinished && !Constants.stopScript && Constants.invPrepped
 				&& Constants.Gloves
 				&& !Constants.GlovesEquipped;
 	}
@@ -24,7 +24,7 @@ public class EquipGloves extends Strategy implements Task {
 	 * Open inventory Equip gloves set equipped bool to true
 	 */
 	public void run() {
-		Constants.Status = "Equipping gloves of silence";
+		Constants.status = "Equipping gloves of silence";
 		
 		if (Tabs.getCurrent() != Tabs.INVENTORY) {
 			Tabs.INVENTORY.open();

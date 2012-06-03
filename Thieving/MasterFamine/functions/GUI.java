@@ -15,6 +15,7 @@ import javax.swing.border.EmptyBorder;
 
 import org.powerbot.game.api.util.Timer;
 
+//TODO: Make a new GUI with info and everything.
 public class GUI extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private boolean isRunning = true;
@@ -51,7 +52,8 @@ public class GUI extends JFrame {
 		chckbxBanking.setBounds(8, 117, 101, 23);
 		Constants.contentPane.add(chckbxBanking);
 
-		@SuppressWarnings({ "unchecked", "rawtypes" }) // TODO: Fix lazyness.
+		@SuppressWarnings({ "unchecked", "rawtypes" })
+		// TODO: Fix lazyness.
 		final JComboBox comboBox = new JComboBox(Constants.foodNames);
 		comboBox.setBounds(69, 143, 133, 27);
 		Constants.contentPane.add(comboBox);

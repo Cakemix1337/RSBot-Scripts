@@ -2,6 +2,7 @@ package masterFamine.functions.handlers;
 
 import masterFamine.functions.Constants;
 
+import org.powerbot.game.api.util.Time;
 import org.powerbot.game.bot.event.MessageEvent;
 
 public class MessageHandler {
@@ -18,8 +19,7 @@ public class MessageHandler {
 			Constants.TripleCount++;
 		} else if (e.getMessage().contains("quadruple the loot")) {
 			Constants.QuadCount++;
-		} else if (e.getMessage().contains(
-				"Your gloves of silence have worn out")) {
+		} else if (e.getMessage().contains("Your gloves")) {
 			Constants.GlovesEquipped = false;
 		} else if (e.getMessage().contains("been stunned")) {
 			Constants.Stunned = true;
@@ -27,7 +27,12 @@ public class MessageHandler {
 			Constants.UnderAttack = true;
 		} else if (e.getMessage().contains("Oh dear, you are dead!")) {
 			Constants.Dead = true;
-			Constants.Launch = true; // lazy
+		} else if (e.getMessage().contains("You eat")) {
+			Constants.foodEated++;
+		} else if (e.getMessage().contains("You've just advanced")) {
+			System.out.println(e.getMessage());
+			Time.sleep(1500);
+			Constants.gainedLvls++;
 		}
 	}
 }

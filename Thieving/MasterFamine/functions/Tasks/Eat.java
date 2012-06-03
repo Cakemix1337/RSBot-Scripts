@@ -1,4 +1,4 @@
-package masterFamine.functions.tasks;
+package masterFamine.functions.Tasks;
 
 import masterFamine.functions.Constants;
 
@@ -13,22 +13,32 @@ import org.powerbot.game.api.util.Random;
 import org.powerbot.game.api.util.Time;
 import org.powerbot.game.api.wrappers.node.Item;
 
-public class EatFood extends Strategy implements Task {
+public class Eat extends Strategy implements Task {
 
-	/**
-	 * Eating is enabled HP is under limit set using GUI
+	/*
+	 * Validate, I like it clean rather then 1 line.
 	 */
+	@Override
 	public boolean validate() {
-		return Constants.GUIFinished == true && Constants.Launch == false
-				&& Constants.Eating == true
-				&& (Players.getLocal().getHpPercent() <= Constants.HealPct);
+		if (Constants.stopScript)
+			return Boolean.FALSE;
+
+		if (!Constants.GUIFinished)
+			return Boolean.FALSE;
+
+		if (Constants.Eating && Inventory.getCount(Constants.FoodID) == 0)
+			return Boolean.FALSE;
+
+		if (Constants.Eating
+				&& Players.getLocal().getHpPercent() < Constants.HealPct)
+			return Boolean.TRUE;
+		
+		return Boolean.FALSE;
 	}
 
-	/**
-	 * If excalibur is enable use that Else eat food
-	 */
+	@Override
 	public void run() {
-		Constants.Status = "Healing";
+		Constants.status = "Eating";
 		if (Constants.Excalibur == true && Settings.get(300) / 10 == 100) {
 			Tabs.ATTACK.open();
 			Widgets.get(884, 4).click(true);
@@ -43,17 +53,9 @@ public class EatFood extends Strategy implements Task {
 		for (final Item i : Inventory.getItems()) {
 			if (i != null && i.getId() == Constants.FoodID) {
 				i.getWidgetChild().interact("Eat");
-				Constants.FoodLeft--;
-				Time.sleep(Random.nextInt(200, 800));
+				Time.sleep(Random.nextInt(400, 800));
 				return;
-			}
-
-			if (Constants.FoodLeft == 0) {
-				System.out.println("Out of food.");
-				Constants.invPrepped = false;
-				Constants.NoFood = true;
 			}
 		}
 	}
-
 }

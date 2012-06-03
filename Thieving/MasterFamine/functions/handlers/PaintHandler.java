@@ -19,7 +19,7 @@ public class PaintHandler {
 				.getLevel(Skills.THIEVING) + 1));
 		int XPCurr = (Skills.getExperience(Skills.THIEVING));
 		int XPLeft = XPNext - XPCurr;
-		g.drawString("Constants.Status: " + Constants.Status, 10, 50);
+		g.drawString("Constants.status: " + Constants.status, 10, 50);
 
 		Color Color1 = new Color(0, 0, 0, 150);
 		g.setColor(Color1);

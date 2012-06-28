@@ -38,8 +38,6 @@ public class Vulcan extends Strategy implements Task {
 				|| vulcan == null) {
 			TilePath path = Walking.newTilePath(Constants.TILES_BANK_TO_VULCAN);
 
-			if (path.getNext().distanceTo() < 7
-					|| !Players.getLocal().isMoving())
 				path.traverse();
 
 			Time.sleep(200);

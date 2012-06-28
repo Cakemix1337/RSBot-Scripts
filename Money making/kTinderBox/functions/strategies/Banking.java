@@ -31,7 +31,6 @@ public class Banking extends Strategy implements Task {
 		if (Calculations.distanceTo(Constants.TILE_BANK) > 7) {
 			TilePath path = Walking.newTilePath(Constants.TILES_BANK_TO_VULCAN).reverse();
 			
-			if (path.getNext().distanceTo() < 7)
 				path.traverse();
 			
 			Time.sleep(200);
